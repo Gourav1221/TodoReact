@@ -53,11 +53,11 @@ export const TodoRecord = () => {
 
     <div>
     {data.map((e)=>{
-      return <div key={e.id}>
+      return( <div key={e._id}>
           <h1>{e.taskName}</h1>
           <h3>{e.userName}</h3>
           <p>{e.createdAt}</p>
-      </div>
+      </div>)
     })}
     </div>
     
