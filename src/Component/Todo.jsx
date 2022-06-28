@@ -1,27 +1,22 @@
+import React, { useContext, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { StoreContext } from "../Context/Store";
+import { Routes, Route, Link } from "react-router-dom";
 
-import React,{useState} from 'react'
-import { Navigate  } from 'react-router-dom'
+export const Todo = ({ getData }) => {
+  const [btn, setBtn] = useState(false);
 
-export const Todo = ({getData}) => {
-    const [text,setText] = useState("")
-    
-    const handle = (e)=>{
-        setText(e.target.value)
-    }
-   
-    const handleChange = ()=>{
-       // getData(text)
-        <Navigate to = "/note"/>
-        getData(text)
-    }
+  const { handle } = useContext(StoreContext);
+
+  const handleControl = (e) => {
+    setBtn(true);
+    handle(e.target.value);
+  };
   return (
-   <>
- 
+    <>
+      <input type="text" onChange={handleControl} />
 
-   <input type="text" onChange={handle}/>
-   <button onClick={handleChange}>ADD</button>
-
-  
-   </>
-  )
-}
+      {btn ? <Link to="/note">Login</Link> : " "}
+    </>
+  );
+};

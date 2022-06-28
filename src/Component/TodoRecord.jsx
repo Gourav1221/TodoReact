@@ -1,9 +1,67 @@
 
-import React from 'react'
+import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
+import { StoreContext } from '../Context/Store'
 
-export const TodoRecord = ({data}) => {
-console.log("todo",{data})
+export const TodoRecord = () => {
+
+  const [data,setData] = useState([])
+  const [str,setStr] = useState("")
+
+  const {text} = useContext(StoreContext)
+
+
+
+
+
+    const fetchdata = () =>{
+      axios.get("http://localhost:3001").then(({data}) =>{
+        setData(data)
+      })
+      .catch((er)=>{
+        console.log(er)
+      })
+    }
+
+
+  useEffect(() =>{
+    fetchdata()
+  },[])
+
+  const handlecontroll = (e) => {
+    setStr(e.target.value)
+  } 
+
+  const addto = () => {
+    const data = {
+      taskName:str,
+      userName:text
+    }
+    axios.post("http://localhost:3001",data).then(()=>{
+      fetchdata()
+    })
+    .catch((er)=>{
+      cosnole.log(er)
+    })
+  }
   return (
-    <div>{data}</div>
+    <>
+    <div>
+      <input type="text" onChange={handlecontroll}/>
+      <button onClick={addto}>Add Todo</button>
+    </div>
+
+    <div>
+    {data.map((e)=>{
+      return <div key={e.id}>
+          <h1>{e.taskName}</h1>
+          <h3>{e.userName}</h3>
+          <p>{e.createdAt}</p>
+      </div>
+    })}
+    </div>
+    
+    </>
+    
   )
 }
