@@ -15,7 +15,7 @@ export const TodoRecord = () => {
 
 
     const fetchdata = () =>{
-      axios.get("http://localhost:3001").then(({data}) =>{
+      axios.get("https://obscure-meadow-04116.herokuapp.com/").then(({data}) =>{
         setData(data)
       })
       .catch((er)=>{
@@ -37,7 +37,7 @@ export const TodoRecord = () => {
       taskName:str,
       userName:text
     }
-    axios.post("http://localhost:3001",data).then(()=>{
+    axios.post("https://obscure-meadow-04116.herokuapp.com/",data).then(()=>{
       fetchdata()
     })
     .catch((er)=>{
